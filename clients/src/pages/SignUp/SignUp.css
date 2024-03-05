@@ -1,0 +1,53 @@
+.signup{
+    width: 100%;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+}
+.signup form{
+    max-width: 600px;
+    width: 100%;
+    border: 2px solid rgba(128, 128, 128, 0.302);
+    padding: 3rem 1.5rem;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.signup form .title{
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: rgba(59, 59, 59, 0.921);
+}
+.signup form .form__content{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+.signup form .form__content .user__input{
+    width: 100%;
+    border: 1px solid rgba(128, 128, 128, 0.472);
+    padding: 10px 20px;
+    border-radius: 2px;
+    outline: none;
+}
+.signup form .forget{
+    display: flex;
+    justify-content: flex-end;
+}
+.signup form .forget p{
+    color: rgba(255, 0, 0, 0.884);
+    font-size: 17px;
+}
+.signup form .text{
+    font-size: 16px;
+    color: gray;
+}
+.signup form .text a{
+    color: green;
+    text-decoration: underline;
+    font-size: 18px;
+}
