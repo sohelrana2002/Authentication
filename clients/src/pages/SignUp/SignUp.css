@@ -26,6 +26,7 @@
     flex-direction: column;
     gap: 10px;
     width: 100%;
+    margin-bottom: 5px;
 }
 .signup form .form__content .user__input{
     width: 100%;
