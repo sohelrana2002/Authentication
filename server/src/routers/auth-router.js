@@ -3,7 +3,7 @@ const router = new express.Router();
 
 const signUp = require("../model/signUp");
 
-router.post("/sign-up", async (req, res) =>{
+router.route("/sign-up").post(async (req, res) =>{
     try{
         const user = new signUp(req.body);
         const createUser = await user.save();
@@ -18,7 +18,7 @@ router.post("/sign-up", async (req, res) =>{
 });
 
 
-router.get("/signUp-data", async(req, res) =>{
+router.route("/signUp-data").get(async(req, res) =>{
     try{
         const getUserSignUp = await signUp.find();
         if(!getUserSignUp){
@@ -29,7 +29,7 @@ router.get("/signUp-data", async(req, res) =>{
     }catch(err){
         res.status(404).send(err);
     }
-})
+});
 
 
 
