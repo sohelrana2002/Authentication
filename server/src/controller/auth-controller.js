@@ -1,8 +1,8 @@
-const signUp = require("../model/signUp");
+const SignUp = require("../model/signUp");
 
 const getSignUpData = (async(req, res) =>{
     try{
-        const getUserSignUp = await signUp.find();
+        const getUserSignUp = await SignUp.find();
         if(!getUserSignUp){
             res.status(404).send();
         }else{
@@ -13,16 +13,29 @@ const getSignUpData = (async(req, res) =>{
     }
 });
 
-const register = (async (req, res) =>{
-    try{
-        const user = new signUp(req.body);
-        const createUser = await user.save();
-        if(!createUser){
+const register = (async (req, res) => {
+    try {
+        const { email, password, cPassword } = req.body;
+        const userExist = await SignUp.findOne({ email });
+
+        if (userExist) {
+            return res.status(400).json({
+                message: "email already exists"
+            });
+        }
+
+        const createUser = await SignUp.create({ 
+            email,
+            password,
+            cPassword
+        });
+        console.log(createUser);
+        if (!createUser) {
             res.status(404).send();
-        }else{
+        } else {
             res.status(201).send(createUser)
         }
-    }catch(err){
+    } catch (err) {
         res.status(404).send(err);
     }
 });
