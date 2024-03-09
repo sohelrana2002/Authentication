@@ -4,7 +4,7 @@ const getSignUpData = (async(req, res) =>{
     try{
         const getUserSignUp = await SignUp.find();
         if(!getUserSignUp){
-            res.status(404).send();
+            res.status(404).json();
         }else{
             res.status(201).send(getUserSignUp);
         }
@@ -29,14 +29,15 @@ const register = (async (req, res) => {
             password,
             cPassword
         });
+
         console.log(createUser);
-        if (!createUser) {
-            res.status(404).send();
-        } else {
-            res.status(201).send(createUser)
-        }
+        res.status(201).json({
+            message: "Sign Up Successfull",
+            token: await createUser.generateToken(),
+            userId: createUser._id.toString(),
+        });
     } catch (err) {
-        res.status(404).send(err);
+        res.status(404).json("internal server error");
     }
 });
 

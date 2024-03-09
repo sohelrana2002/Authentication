@@ -1,5 +1,7 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 
 const signUpSchema = new mongoose.Schema({
@@ -21,7 +23,7 @@ const signUpSchema = new mongoose.Schema({
 });
 
 
-// =====secure password uing bcrypt=========
+// =====secure password using bcrypt=========
 signUpSchema.pre("save", async function(next){
     const user = this;
     if(!user.isModified("password", "cPassword")){
@@ -36,7 +38,22 @@ signUpSchema.pre("save", async function(next){
     }catch(err){
         next(err);
     }
-})
+});
+
+// =======json web token=======
+signUpSchema.methods.generateToken = async function(){
+    try{
+        return jwt.sign({
+            userId: this._id.toString(),
+            email: this.email,
+            password: this.password
+        }, process.env.JWT_SECRET_KEY, {
+            expiresIn: "30d"
+        })
+    }catch(err){
+        console.error(err);
+    }
+}
 
 const SignUp = new mongoose.model("userSignUp", signUpSchema);
 

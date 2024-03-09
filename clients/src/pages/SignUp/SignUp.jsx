@@ -21,15 +21,28 @@ const SignUp = () => {
   }
   console.log(userSignUp);
 
-  const handleSubmit = (e) =>{
+  const handleSubmit = async(e) =>{
     e.preventDefault();
-    if(userSignUp.password === userSignUp.cPassword){
-
-    }else{
-      setUserSignUp({
-        ...userSignUp,
-        wrongPass: true,
-      })
+    try{
+      if(userSignUp.password === userSignUp.cPassword){
+        const res = await fetch(`/api/auth/sign-up`, {
+          method: "POST",
+          body: JSON.stringify(userSignUp),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+  
+        // const data = await res.json();
+        console.log(res);
+      }else{
+        setUserSignUp({
+          ...userSignUp,
+          wrongPass: true,
+        })
+      }
+    }catch(err){
+      console.log(err);
     }
   }
   
