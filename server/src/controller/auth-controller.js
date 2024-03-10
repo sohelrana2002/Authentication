@@ -1,4 +1,5 @@
 const SignUp = require("../model/signUp");
+const bcrypt = require("bcrypt");
 
 const getSignUpData = (async(req, res) =>{
     try{
@@ -13,6 +14,8 @@ const getSignUpData = (async(req, res) =>{
     }
 });
 
+
+// ==========for sign up=========
 const register = (async (req, res) => {
     try {
         const { email, password, cPassword } = req.body;
@@ -37,8 +40,41 @@ const register = (async (req, res) => {
             userId: createUser._id.toString(),
         });
     } catch (err) {
-        res.status(404).json("internal server error");
+        res.status(500).json("internal server error");
     }
 });
 
-module.exports = { getSignUpData, register }
+
+// ========for log in=======
+const login = (async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const userExist = await SignUp.findOne({ email });
+
+        if (!userExist) {
+            return res.status(400).json({
+                message: "Invalid Credentials"
+            });
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, userExist.password);
+
+        console.log(isPasswordValid);
+        if(isPasswordValid){
+            res.status(200).json({
+                message: "Successfully login",
+                token: await userExist.generateToken(),
+                userId: userExist._id.toString(),
+            });
+        }else{
+            res.status(400).json({
+                message: "Invalid email or password"
+            });
+        }
+    } catch (err) {
+        res.status(500).json("internal server error");
+    }
+});
+
+
+module.exports = { getSignUpData, register, login }

@@ -35,11 +35,16 @@ const SignUp = () => {
   
         // const data = await res.json();
         console.log(res);
+
+        setUserSignUp({
+          ...userSignUp,
+          wrongPass: false,
+        });
       }else{
         setUserSignUp({
           ...userSignUp,
           wrongPass: true,
-        })
+        });
       }
     }catch(err){
       console.log(err);
