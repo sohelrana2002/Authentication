@@ -1,4 +1,4 @@
-const SignUp = require("../model/signUp");
+const SignUp = require("../model/auth-model");
 const bcrypt = require("bcrypt");
 
 const getSignUpData = (async(req, res) =>{
