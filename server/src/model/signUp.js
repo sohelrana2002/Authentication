@@ -40,6 +40,11 @@ signUpSchema.pre("save", async function(next){
     }
 });
 
+// ======compare password=========
+signUpSchema.methods.comparePassword = async function(password){
+    return bcrypt.compare(password, this.password);
+}
+
 // =======json web token=======
 signUpSchema.methods.generateToken = async function(){
     try{
@@ -54,6 +59,7 @@ signUpSchema.methods.generateToken = async function(){
         console.error(err);
     }
 }
+
 
 const SignUp = new mongoose.model("userSignUp", signUpSchema);
 
