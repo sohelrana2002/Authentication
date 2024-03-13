@@ -2,7 +2,8 @@ require("dotenv").config();
 const express = require("express");
 require("./db/connection");
 const cors = require("cors");
-const authRouter = require("./routers/auth-router")
+const authRouter = require("./routers/auth-router");
+const contactRouter = require("./routers/contact-router");
 
 const app = express();
 const PORT = process.env.PORT;
@@ -14,6 +15,7 @@ const PORT = process.env.PORT;
 // ===middleware====
 app.use(express.json());
 app.use("/api/auth", authRouter);
+app.use("/api/contactInfo", contactRouter);
 // app.use(cors(corsOptions));
 
 app.listen(PORT, () =>{
