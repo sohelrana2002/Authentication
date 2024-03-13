@@ -19,18 +19,19 @@ const SignUp = () => {
       [name] : value,
     });
   }
-  console.log(userSignUp);
+  // console.log(userSignUp);
 
   const handleSubmit = async(e) =>{
     e.preventDefault();
     try{
       if(userSignUp.password === userSignUp.cPassword){
-        const res = await fetch(`/api/auth/sign-up`, {
+        console.log(userSignUp);
+        const res = await fetch(`http://localhost:5000/api/auth/sign-up`, {
           method: "POST",
-          body: JSON.stringify(userSignUp),
           headers: {
-            "Content-type": "application/json; charset=UTF-8",
+            "Content-Type": "application/json",
           },
+          body: JSON.stringify(userSignUp),
         });
   
         // const data = await res.json();
