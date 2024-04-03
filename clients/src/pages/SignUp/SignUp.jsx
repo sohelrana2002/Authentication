@@ -3,6 +3,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 import "./SignUp.css";
 
+
+const URL = "http://localhost:5000/api/auth/sign-up";
+
 const SignUp = () => {
   const [userSignUp, setUserSignUp] = useState({
     email: "",
@@ -28,7 +31,7 @@ const SignUp = () => {
     try{
       if(userSignUp.password === userSignUp.cPassword){
         console.log(userSignUp);
-        const res = await fetch(`http://localhost:5000/api/auth/sign-up`, {
+        const res = await fetch(URL, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -44,7 +47,7 @@ const SignUp = () => {
             cPassword: "",
             wrongPass: false,
           });
-          navigate("/")
+          navigate("/login")
         }
         // setUserSignUp({
         //   ...userSignUp,

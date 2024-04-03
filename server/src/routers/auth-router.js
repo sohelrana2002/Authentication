@@ -12,7 +12,7 @@ router
   .post(validate(signUpValidatorSchema), authController.register);
 
 // =====for log in=====
-router.route("/login").get(authController.login);
+router.route("/login").post(authController.login);
 
 
 module.exports = router;
