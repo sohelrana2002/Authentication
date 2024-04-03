@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../context/AuthContext";
 import "./LogIn.css";
 
 
 const URL = "http://localhost:5000/api/auth/login";
 
 const LogIn = () => {
+  const { storeTokenInLS } = useAuthContext();
+
   const navigate = useNavigate();
   const [userLogIn, setUserLogIn] = useState({
     email: "",
@@ -21,7 +24,7 @@ const LogIn = () => {
       [name]: value,
     });
   };
-  console.log(userLogIn);
+  // console.log(userLogIn);
 
   // ====handle submit=====
   const handleLogInSubmit = async (e) =>{
@@ -34,10 +37,13 @@ const LogIn = () => {
         },
         body: JSON.stringify(userLogIn),
       });
-      console.log("log in form", res);
+      // console.log("log in form", res);
 
       if (res.ok) {
         alert("Log in successfully");
+        const resData = await res.json();
+        storeTokenInLS(resData.token);
+        // console.log(resData);
         setUserLogIn({
           email: "",
           password: "",

@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-
+import { useAuthContext } from "../../context/AuthContext";
 import "./SignUp.css";
 
 
 const URL = "http://localhost:5000/api/auth/sign-up";
 
 const SignUp = () => {
+  const { storeTokenInLS } = useAuthContext();
+
   const [userSignUp, setUserSignUp] = useState({
     email: "",
     password: "",
@@ -41,6 +43,9 @@ const SignUp = () => {
 
         if(res.statusText === "Created"){
           alert("Sign Up Successfully");
+          const resData = await res.json();
+          storeTokenInLS(resData.token);
+          // console.log(resData);
           setUserSignUp({
             email: "",
             password: "",
@@ -49,13 +54,7 @@ const SignUp = () => {
           });
           navigate("/login")
         }
-        // setUserSignUp({
-        //   ...userSignUp,
-        //   wrongPass: false,
-        // });
-  
-        // const data = await res.json();
-        console.log(res);
+        // console.log(res);
       }else{
         setUserSignUp({
           ...userSignUp,
@@ -72,6 +71,7 @@ const SignUp = () => {
       <form onSubmit={handleSubmit}>
         <h3 className="title">Sign UP</h3>
         <div className="form__content">
+          {/* ====email====== */}
           <input
             className="user__input"
             type="text"
@@ -80,6 +80,7 @@ const SignUp = () => {
             value={userSignUp.email}
             onChange={handleInput}
           />
+          {/* =====password===== */}
           <input
             className="user__input"
             type="password"
@@ -88,6 +89,7 @@ const SignUp = () => {
             value={userSignUp.password}
             onChange={handleInput}
           />
+          {/* =====confirm password======= */}
           <input
             className="user__input"
             type="password"
