@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink} from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import "./SignUp.css";
 
@@ -10,6 +10,8 @@ const SignUp = () => {
     cPassword: "",
     wrongPass: false
   });
+
+  const navigate = useNavigate();
 
   const handleInput = (e) =>{
     let name = e.target.name;
@@ -33,14 +35,24 @@ const SignUp = () => {
           },
           body: JSON.stringify(userSignUp),
         });
+
+        if(res.statusText === "Created"){
+          alert("Sign Up Successfully");
+          setUserSignUp({
+            email: "",
+            password: "",
+            cPassword: "",
+            wrongPass: false,
+          });
+          navigate("/")
+        }
+        // setUserSignUp({
+        //   ...userSignUp,
+        //   wrongPass: false,
+        // });
   
         // const data = await res.json();
         console.log(res);
-
-        setUserSignUp({
-          ...userSignUp,
-          wrongPass: false,
-        });
       }else{
         setUserSignUp({
           ...userSignUp,
