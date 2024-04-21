@@ -108,7 +108,7 @@ const SignUp = () => {
 
         <button type="submit" className="btn">Sign Up</button>
 
-        <p className="text">Have an account? <NavLink to='/'>Log In</NavLink></p>
+        <p className="text">Have an account? <NavLink to='/login'>Log In</NavLink></p>
       </form>
     </div>
   );

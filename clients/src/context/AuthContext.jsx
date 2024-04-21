@@ -1,19 +1,36 @@
-import { createContext, useContext, useReducer } from "react"
+import { createContext, useContext, useReducer } from "react";
+import authReducer from '../reducer/authReducer';
 
 // ====create contect======
 const AuthContext = createContext();
 
+const initialState = {
+    token: localStorage.getItem("token"),
+}
+
 // ====create provider====
 const AuthProvider = ({ children }) =>{
+    const [state, dispatch] = useReducer(authReducer, initialState);
 
     // ======store token in local storage====
     const storeTokenInLS = (serverToken) =>{
-        return localStorage.setItem('token', serverToken)
-    }
+        return localStorage.setItem('token', serverToken);
+    };
+
+    // =======user log out =====
+    const logOutUser = () =>{
+        dispatch({
+            type: "REMOVE_TOKEN",
+        })
+    };
+
+    let isLoggedIn = state.token;
 
 
     const value = {
         storeTokenInLS,
+        logOutUser,
+        isLoggedIn,
     }
     return(
         <AuthContext.Provider value={value}>
