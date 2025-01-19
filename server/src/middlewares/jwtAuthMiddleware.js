@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const jwtAuthMiddleware = (req, res, next) => {
   // ===extract jwt token from request headers====
-  const token = req.headers.authorization.split(" ")[10];
+  const token = req.headers.authorization.split(" ")[1];
 
   if (!token) {
     return res.status(401).json({
