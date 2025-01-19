@@ -8,6 +8,7 @@ const jwtAuthMiddleware = (req, res, next) => {
       message: "Token not found!",
     });
   }
+
   // ===extract jwt token from request headers====
   const token = req.headers.authorization.split(" ")[1];
 

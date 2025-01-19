@@ -3,14 +3,24 @@ const bcrypt = require("bcrypt");
 
 const getSignUpData = async (req, res) => {
   try {
-    const getUserSignUp = await SignUp.find();
+    const getUserSignUp = await SignUp.find({});
+
     if (!getUserSignUp) {
-      res.status(404).json();
+      res.status(404).json({
+        message: "Users not found!",
+      });
     } else {
-      res.status(201).send(getUserSignUp);
+      res.status(201).json({
+        message: "Success.",
+        length: getUserSignUp.length,
+        users: getUserSignUp,
+      });
     }
   } catch (err) {
-    res.status(404).send(err);
+    res.status(404).json({
+      message: "Internal error!",
+      error: err,
+    });
   }
 };
 

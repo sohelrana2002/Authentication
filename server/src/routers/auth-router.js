@@ -3,9 +3,12 @@ const router = new express.Router();
 const authController = require("../controller/auth-controller");
 const signUpValidatorSchema = require("../validator/auth-validator");
 const validate = require("../middlewares/validate-middleware");
+const jwtAuthMiddleware = require("../middlewares/jwtAuthMiddleware");
 
-
-router.route("/signUp-data").get(authController.getSignUpData);
+// ====get usersInfo using protected route using jwtAuthMiddleware ===
+router
+  .route("/users-info")
+  .get(jwtAuthMiddleware, authController.getSignUpData);
 // =====for sign up=====
 router
   .route("/sign-up")
@@ -13,6 +16,5 @@ router
 
 // =====for log in=====
 router.route("/login").post(authController.login);
-
 
 module.exports = router;
