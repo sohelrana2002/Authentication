@@ -87,4 +87,33 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { getSignUpData, register, login };
+// =====individual profile info====
+const individualProfile = async (req, res, next) => {
+  try {
+    const userData = req.jwtPayload;
+    // console.log(userData), "userData";
+
+    const userId = userData.userId;
+
+    const profileDetails = await SignUp.findById(userId);
+
+    if (profileDetails) {
+      return res.status(201).json({
+        message: "success",
+        profileDetails: profileDetails,
+      });
+    } else {
+      return res.status(201).json({
+        message: "failed",
+        error: "Invalied token",
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      message: "Internal server error",
+      error: err,
+    });
+  }
+};
+
+module.exports = { getSignUpData, register, login, individualProfile };

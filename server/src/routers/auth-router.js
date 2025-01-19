@@ -17,4 +17,9 @@ router
 // =====for log in=====
 router.route("/login").post(authController.login);
 
+// =====individual profile info====
+router
+  .route("/profile")
+  .get(jwtAuthMiddleware, authController.individualProfile);
+
 module.exports = router;
