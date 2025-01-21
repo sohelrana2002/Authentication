@@ -1,7 +1,5 @@
 const { z } = require("zod");
 
-const VALUES = ["admin", "manager", "user"];
-
 // ====creating an object  schema========
 const signUpValidatorSchema = z
   .object({
