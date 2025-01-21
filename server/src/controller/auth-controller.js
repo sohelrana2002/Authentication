@@ -48,7 +48,6 @@ const register = async (req, res) => {
       message: "Sign Up Successfull",
       token: await createUser.generateToken(),
       userId: createUser._id.toString(),
-      role: createUser.role,
     });
   } catch (err) {
     res.status(500).json("internal server error");
