@@ -5,6 +5,7 @@ const cors = require("cors");
 const authRouter = require("./routers/auth-router");
 const contactRouter = require("./routers/contact-router");
 const deleteRouter = require("./routers/deleteAllUserRouter");
+const userRoute = require("./routers/userRoute");
 
 const app = express();
 const PORT = process.env.PORT;
@@ -23,6 +24,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/contactInfo", contactRouter);
 
 app.use("/api", deleteRouter);
+app.use("/api/user", userRoute);
 
 app.listen(PORT, () => {
   console.log(`Listen from port ${PORT}`);
