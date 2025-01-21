@@ -71,7 +71,7 @@ const login = async (req, res) => {
     // =====2nd method====
     const isPasswordValid = await userExist.comparePassword(password);
 
-    console.log(isPasswordValid);
+    // console.log(isPasswordValid);
     if (isPasswordValid) {
       res.status(200).json({
         message: "Successfully login",
