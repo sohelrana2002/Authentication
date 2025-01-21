@@ -1,5 +1,7 @@
 const { z } = require("zod");
 
+const VALUES = ["admin", "manager", "user"];
+
 // ====creating an object  schema========
 const signUpValidatorSchema = z
   .object({
@@ -7,14 +9,20 @@ const signUpValidatorSchema = z
       .string({ required_error: "Email must be required" })
       .trim()
       .email({ message: "Invalid email " }),
+
     password: z
       .string({ required_error: "Password is required" })
       .min(6, { message: "Password must be at least 6 character" })
       .max(1024, { message: "Password can't be greater than 1024 character" }),
+
     cPassword: z
       .string({ required_error: "Confirm password must be same as password" })
       .min(6, { message: "Password must be at least 6 character" })
       .max(1024, { message: "Password can't be greater than 1024 character" }),
+
+    role: z.enum(["admin", "manager", "user"], {
+      required_error: "Role must be required",
+    }),
   })
   .superRefine(({ password, cPassword }, ctx) => {
     if (password !== cPassword) {
