@@ -4,7 +4,6 @@ require("./db/connection");
 const cors = require("cors");
 const authRouter = require("./routers/auth-router");
 const contactRouter = require("./routers/contact-router");
-const user = require("./model/auth-model");
 const deleteRouter = require("./routers/deleteAllUserRouter");
 
 const app = express();
