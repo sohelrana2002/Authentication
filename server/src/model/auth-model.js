@@ -62,7 +62,7 @@ signUpSchema.methods.generateToken = async function () {
     return jwt.sign(
       {
         userId: this._id.toString(),
-        email: this.email,
+        role: this.role,
       },
       process.env.JWT_SECRET_KEY,
       {
