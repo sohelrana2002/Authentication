@@ -27,7 +27,7 @@ const getSignUpData = async (req, res) => {
 // ==========for sign up=========
 const register = async (req, res) => {
   try {
-    const { email, password, cPassword } = req.body;
+    const { email, password, cPassword, role } = req.body;
     const userExist = await SignUp.findOne({ email });
 
     if (userExist) {
@@ -40,13 +40,15 @@ const register = async (req, res) => {
       email,
       password,
       cPassword,
+      role,
     });
 
-    console.log(createUser);
+    // console.log(createUser);
     res.status(201).json({
       message: "Sign Up Successfull",
       token: await createUser.generateToken(),
       userId: createUser._id.toString(),
+      role: createUser.role,
     });
   } catch (err) {
     res.status(500).json("internal server error");
